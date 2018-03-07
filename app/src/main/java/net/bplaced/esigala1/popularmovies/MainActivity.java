@@ -16,7 +16,6 @@
 package net.bplaced.esigala1.popularmovies;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -31,10 +30,8 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import net.bplaced.esigala1.popularmovies.utilities.FetchDataTask;
 import net.bplaced.esigala1.popularmovies.utilities.NetworkUtils;
-import net.bplaced.esigala1.popularmovies.utilities.TheMovieDBJsonUtils;
-
-import java.net.URL;
 
 import static net.bplaced.esigala1.popularmovies.utilities.NetworkUtils.SORT_ORDER_MOST_POPULAR;
 import static net.bplaced.esigala1.popularmovies.utilities.NetworkUtils.SORT_ORDER_TOP_RATED;
@@ -158,8 +155,10 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
         }
         /* Make the View for the data visible and hide the error message */
         showDataView();
-        /* Retrieve the data from the web */
-        new FetchDataTask().execute(sortOrderCurrent);
+        /* Fetch the data from the web asynchronous, through the separate class "FetchDataTask" */
+        new FetchDataTask(new FetchDataTaskCompleteListener()).execute(sortOrderCurrent);
+        /* Display the loading indicator */
+        displayLoadingIndicator(true);
     }
 
     /**
@@ -217,6 +216,22 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
             Log.d(LOG_TAG, "#Sort Order: Top Rated");
             // Initialize the variable.
             sortOrderCurrent = SORT_ORDER_TOP_RATED;
+        }
+    }
+
+    /**
+     * Method to display/hide the loading indicator.
+     *
+     * @param displayIndicator Boolean variable to display/hide the loading indicator
+     */
+    private void displayLoadingIndicator(Boolean displayIndicator){
+    Log.d(LOG_TAG, "displayLoadingIndicator() => " + displayIndicator);
+        if (displayIndicator){
+            /* Display the loading indicator */
+            mLoadingIndicator.setVisibility(View.VISIBLE);
+        } else {
+            /* Hide the loading indicator */
+            mLoadingIndicator.setVisibility(View.INVISIBLE);
         }
     }
 
@@ -318,53 +333,24 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
         startActivity(intentToStartDetailActivity);
     }
 
-    public class FetchDataTask extends AsyncTask<String, Void, Movie[]> {
+    /**
+     * Inner class to fetch the data from the web asynchronous, implementing the custom
+     * interface "AsyncTaskCompleteListener<T>" (included in the separate class "FetchDataTask").
+     */
+    public class FetchDataTaskCompleteListener
+            implements FetchDataTask.AsyncTaskCompleteListener<Movie[]> {
 
         /* Tag for the log messages. */
-        private final String LOG_TAG = "DEBUGGING " + FetchDataTask.class.getSimpleName();
+        private final String LOG_TAG = "DEBUGGING " + FetchDataTaskCompleteListener.class.getSimpleName();
 
         @Override
-        protected void onPreExecute() {
-            Log.d(LOG_TAG,"onPreExecute()");
-            super.onPreExecute();
-            mLoadingIndicator.setVisibility(View.VISIBLE);
-        }
-
-        @Override
-        protected Movie[] doInBackground(String... params) {
-            Log.d(LOG_TAG,"doInBackground()");
-
-            /* If there's no zip code, there's nothing to look up. */
-            if (params.length == 0) {
-                return null;
-            }
-
-            /* The preferred sort order passed through the parameters of the task as a String */
-            String sortOrder = params[0];
-
-            /* The URL to request the data */
-            URL dataRequestUrl = NetworkUtils.buildUrl(sortOrder);
-
-            try {
-                /* Get the entire result from the HTTP response */
-                String jsonDataResponse = NetworkUtils.getResponseFromHttpUrl(dataRequestUrl);
-
-                /* Return an array of Strings containing info for the movies */
-                return TheMovieDBJsonUtils.getDataFromJson(jsonDataResponse);
-
-            } catch (Exception ex) {
-                Log.e(LOG_TAG,"doInBackground(): Exception caught: " + ex);
-                return null;
-            }
-        }
-
-        @Override
-        protected void onPostExecute(Movie[] retrievedData) {
-            Log.d(LOG_TAG,"onPostExecute()");
-            mLoadingIndicator.setVisibility(View.INVISIBLE);
-            if (retrievedData != null) {
+        public void onTaskComplete(Movie[] fetchedData) {
+            Log.d(LOG_TAG,"onTaskComplete()");
+            /* Hide the loading indicator */
+            displayLoadingIndicator(false);
+            if (fetchedData != null) {
                 showDataView();
-                mRVAdapter.setData(retrievedData);
+                mRVAdapter.setData(fetchedData);
             } else {
                 showErrorMessage(false);
             }
