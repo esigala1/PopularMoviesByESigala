@@ -33,7 +33,10 @@ import java.util.Scanner;
 /**
  * These utilities will be used to communicate with the "themoviedb.org" servers.
  *
- * URL EXAMPLE: https://api.themoviedb.org/3/discover/movie?api_key=###&sort_by=popularity.desc&page=1
+ * URL EXAMPLES:
+ * https://api.themoviedb.org/3/movie/popular?api_key=###&page=1
+ * https://api.themoviedb.org/3/movie/top_rated?api_key=###&page=1
+ * https://api.themoviedb.org/3/discover/movie?api_key=###&sort_by=popularity.desc&page=1
  */
 public final class NetworkUtils {
 
@@ -41,13 +44,14 @@ public final class NetworkUtils {
     private static final String LOG_TAG = "DEBUGGING " + NetworkUtils.class.getSimpleName();
 
     /* Base URL for data from the "themoviedb.org" */
-    private static final String BASE_URL = "https://api.themoviedb.org/3/discover/movie?";
+    private static final String BASE_URL = "https://api.themoviedb.org/3/movie/?";
 
     /* The TheMovieDB API Key parameter */
     private final static String API_KEY_PARAM = "api_key";
 
-    /* The TheMovieDB Sort Order parameter */
-    private final static String SORT_ORDER_PARAM = "sort_by";
+    /* Set strings for the sort order available methods */
+    public static final String SORT_ORDER_MOST_POPULAR = "popular";
+    public static final String SORT_ORDER_TOP_RATED = "top_rated";
 
     /* The TheMovieDB Image Size value */
     private final static String IMAGE_SIZE = "w185";
@@ -63,8 +67,8 @@ public final class NetworkUtils {
         Log.d(LOG_TAG, "buildUrl()");
 
         Uri builtUri = Uri.parse(BASE_URL).buildUpon()
+                .appendPath(sortOrder)
                 .appendQueryParameter(API_KEY_PARAM, BuildConfig.THEMOVIEDB_ORG_API_KEY)
-                .appendQueryParameter(SORT_ORDER_PARAM, sortOrder)
                 .build();
         try {
             URL url = new URL(builtUri.toString());

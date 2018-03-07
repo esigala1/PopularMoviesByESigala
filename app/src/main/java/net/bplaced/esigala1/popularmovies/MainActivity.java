@@ -36,6 +36,9 @@ import net.bplaced.esigala1.popularmovies.utilities.TheMovieDBJsonUtils;
 
 import java.net.URL;
 
+import static net.bplaced.esigala1.popularmovies.utilities.NetworkUtils.SORT_ORDER_MOST_POPULAR;
+import static net.bplaced.esigala1.popularmovies.utilities.NetworkUtils.SORT_ORDER_TOP_RATED;
+
 public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVAdapterOnClickHandler {
 
     /* Tag for the log messages. */
@@ -47,10 +50,6 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
 
     /* Set strings to save the state of the activity */
     private static final String STATE_SORT_ORDER = "sort_order";
-
-    /* Set strings for the sort order available methods */
-    private static final String SORT_ORDER_MOST_POPULAR = "popularity.desc";
-    private static final String SORT_ORDER_TOP_RATED = "vote_average.desc";
 
     private MyRVAdapter mRVAdapter;
     private RecyclerView mRecyclerView;
