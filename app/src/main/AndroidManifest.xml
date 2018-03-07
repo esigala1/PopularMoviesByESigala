@@ -4,6 +4,8 @@
 
     <!-- Allow the application to open network sockets. -->
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- Allow the application to access information about networks. -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:allowBackup="true"

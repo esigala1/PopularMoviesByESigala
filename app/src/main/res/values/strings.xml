@@ -3,8 +3,9 @@
     <!-- Name for the application [CHAR LIMIT=12] -->
     <string name="app_name">Popular Movies</string>
 
-    <!-- Error message -->
-    <string name="error_message">An error has occurred. Please try again by clicking REFRESH</string>
+    <!-- Error messages -->
+    <string name="error_msg_general">An error has occurred. Please try again by clicking REFRESH</string>
+    <string name="error_msg_no_internet_connection">No Internet Connection</string>
 
     <!--By convention, "action" denotes that this String will be used as the label for an Action,-->
     <!--typically from the action bar.-->

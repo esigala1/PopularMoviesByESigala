@@ -15,6 +15,9 @@
  */
 package net.bplaced.esigala1.popularmovies.utilities;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.util.Log;
 
@@ -137,5 +140,20 @@ public final class NetworkUtils {
         Log.d(LOG_TAG, "Image URL: " + sb);
         /* Return  */
         return sb.toString();
+    }
+
+    /**
+     * Method to determine if the device has Internet Connection (Network Availability).
+     */
+    public static boolean hasInternetConnection(Context context){
+        /* Use the ConnectivityManager to check if the device is actually connected to the Internet */
+        ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = null;
+        if (cm != null) {
+            /* Use getActiveNetworkInfo() to get an instance that represents the current network connection */
+            activeNetwork = cm.getActiveNetworkInfo();
+        }
+        /* Return the state of connection */
+        return (activeNetwork != null && activeNetwork.isConnectedOrConnecting());
     }
 }

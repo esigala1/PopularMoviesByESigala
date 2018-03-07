@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:padding="@dimen/activity_margin"
-        android:text="@string/error_message"
+        android:text="@string/error_msg_general"
         android:visibility="invisible"
         tools:text="Error Message"
         tools:visibility="visible" />

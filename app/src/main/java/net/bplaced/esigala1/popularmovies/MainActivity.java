@@ -149,6 +149,11 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
      */
     private void loadData() {
         Log.d(LOG_TAG, "loadData()");
+        /* If the device does not have an internet connection, then... */
+        if (!NetworkUtils.hasInternetConnection(this)){
+            showErrorMessage(true);
+            return;
+        }
         /* Make the View for the data visible and hide the error message */
         showDataView();
         /* Retrieve the data from the web */
@@ -178,8 +183,16 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
     /**
      * This method will make the error message visible and hide the data View.
      */
-    private void showErrorMessage() {
+    private void showErrorMessage(Boolean isInternetConnectionError) {
         Log.d(LOG_TAG, "showErrorMessage()");
+        /* Set the text of the TextView depending on the kind of error */
+        if (isInternetConnectionError){
+            Log.d(LOG_TAG, "Display a no internet connection error message.");
+            mErrorMessageDisplay.setText(getResources().getString(R.string.error_msg_no_internet_connection));
+        } else {
+            Log.d(LOG_TAG, "Display a general error message.");
+            mErrorMessageDisplay.setText(getResources().getString(R.string.error_msg_general));
+        }
         /* First, hide the currently visible data */
         mRecyclerView.setVisibility(View.INVISIBLE);
         /* Then, show the error message */
@@ -350,7 +363,7 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
                 showDataView();
                 mRVAdapter.setData(retrievedData);
             } else {
-                showErrorMessage();
+                showErrorMessage(false);
             }
         }
     }
