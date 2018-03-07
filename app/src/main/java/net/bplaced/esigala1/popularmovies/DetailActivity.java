@@ -47,10 +47,10 @@ public class DetailActivity extends AppCompatActivity {
         Intent intentThatStartedThisActivity = getIntent();
 
         if (intentThatStartedThisActivity != null) {
-            /* If the intent has a string extra, then... */
-            if (intentThatStartedThisActivity.hasExtra(Intent.EXTRA_TEXT)) {
-                /* Retrieve extended data from the intent */
-                Movie mItemData = (Movie) intentThatStartedThisActivity.getSerializableExtra(Intent.EXTRA_TEXT);
+            /* If the intent has extended data associated with the given key name, then... */
+            if (intentThatStartedThisActivity.hasExtra(MainActivity.KEY_PARCELABLE_DATA)) {
+                /* Retrieve extended data (parcelable data) from the intent */
+                Movie mItemData = (Movie) intentThatStartedThisActivity.getParcelableExtra(MainActivity.KEY_PARCELABLE_DATA);
                 /* Set the data to the corresponding views */
                 tvDisplayData.setText(getResources().getString(R.string.item_original_title, mItemData.getOriginalTitle()));
                 tvReleaseDate.setText(getResources().getString(R.string.item_release_date, mItemData.getReleaseDate()));

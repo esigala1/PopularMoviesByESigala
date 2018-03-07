@@ -44,6 +44,9 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
     /* Tag for the log messages. */
     private final String LOG_TAG = "DEBUGGING " + MainActivity.class.getSimpleName();
 
+    /* Key to pass the parcelable data between activities within an intent */
+    public static final String KEY_PARCELABLE_DATA = "key_parcelable_data";
+
     /* Set integers for the number of grid columns depending on the orientation of the device */
     private static final int GRID_COLUMNS_PORTRAIT = 3;
     private static final int GRID_COLUMNS_LANDSCAPE = 5;
@@ -307,10 +310,11 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
     @Override
     public void onClickItem(Movie dataForClickedItem) {
         Log.d(LOG_TAG,"onClickItem()");
-
+        /* Create an intent in order to launch the DetailActivity */
         Intent intentToStartDetailActivity = new Intent(this, DetailActivity.class);
         /* Add extended data to the intent */
-        intentToStartDetailActivity.putExtra(Intent.EXTRA_TEXT, dataForClickedItem);
+        intentToStartDetailActivity.putExtra(KEY_PARCELABLE_DATA, dataForClickedItem);
+        /* Launch the Activity */
         startActivity(intentToStartDetailActivity);
     }
 
