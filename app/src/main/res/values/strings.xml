@@ -1,0 +1,28 @@
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+
+    <!-- Name for the application [CHAR LIMIT=12] -->
+    <string name="app_name">Popular Movies</string>
+
+    <!-- Error message -->
+    <string name="error_message">An error has occurred. Please try again by clicking REFRESH</string>
+
+    <!--By convention, "action" denotes that this String will be used as the label for an Action,-->
+    <!--typically from the action bar.-->
+
+    <!-- Used in overflow menu to refresh the data -->
+    <string name="action_refresh">Refresh</string>
+
+    <!-- Used in overflow menu to sort the data -->
+    <string name="action_sort_most_popular">Most Popular</string>
+    <string name="action_sort_top_rated">Top Rated</string>
+
+    <!-- Content description for ImageViews -->
+    <string name="cont_desc_poster_thumbnail">Poster Thumbnail</string>
+
+    <!-- Item info -->
+    <string name="item_original_title">Title: <xliff:g example="Title" id="original_title">%s</xliff:g></string>
+    <string name="item_release_date">Release Date: <xliff:g example="Date" id="date">%s</xliff:g></string>
+    <string name="item_rating">Vote Average: <xliff:g example="3.5" id="rating">%.1f</xliff:g></string>
+    <string name="item_overview">Plot Synopsis: <xliff:g example="Overview" id="overview">%s</xliff:g></string>
+
+</resources>
