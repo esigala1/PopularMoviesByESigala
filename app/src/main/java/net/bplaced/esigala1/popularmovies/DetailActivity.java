@@ -27,10 +27,19 @@ import com.squareup.picasso.Picasso;
 import net.bplaced.esigala1.popularmovies.model.Movie;
 import net.bplaced.esigala1.popularmovies.utilities.NetworkUtils;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     /* Tag for the log messages. */
     private final String LOG_TAG = "DEBUGGING " + DetailActivity.class.getSimpleName();
+
+    @BindView(R.id.iv_poster) ImageView ivPoster;
+    @BindView(R.id.tv_original_title) TextView tvOriginalTitle;
+    @BindView(R.id.tv_release_date) TextView tvReleaseDate;
+    @BindView(R.id.tv_rating) TextView tvRating;
+    @BindView(R.id.tv_overview) TextView tvOverview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,11 +47,8 @@ public class DetailActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        ImageView ivPoster = findViewById(R.id.iv_poster);
-        TextView tvOriginalTitle = findViewById(R.id.tv_original_title);
-        TextView tvReleaseDate = findViewById(R.id.tv_release_date);
-        TextView tvRating = findViewById(R.id.tv_rating);
-        TextView tvOverview = findViewById(R.id.tv_overview);
+        /* Initialize Butter Knife and Bind the Views to the Activity */
+        ButterKnife.bind(this);
 
         /* Get the intent that started this activity. */
         Intent intentThatStartedThisActivity = getIntent();
