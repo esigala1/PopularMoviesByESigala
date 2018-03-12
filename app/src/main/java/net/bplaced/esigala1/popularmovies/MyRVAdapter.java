@@ -16,7 +16,6 @@
 package net.bplaced.esigala1.popularmovies;
 
 import android.content.Context;
-import android.net.Uri;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +25,7 @@ import android.widget.ImageView;
 
 import com.squareup.picasso.Picasso;
 
+import net.bplaced.esigala1.popularmovies.model.Movie;
 import net.bplaced.esigala1.popularmovies.utilities.NetworkUtils;
 
 /**

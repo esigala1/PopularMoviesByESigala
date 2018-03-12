@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import net.bplaced.esigala1.popularmovies.model.Movie;
 import net.bplaced.esigala1.popularmovies.utilities.NetworkUtils;
 
 public class DetailActivity extends AppCompatActivity {

@@ -1,8 +1,10 @@
-package net.bplaced.esigala1.popularmovies;
+package net.bplaced.esigala1.popularmovies.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.Log;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * A class to represent a single {@link Movie} item.
@@ -18,10 +20,19 @@ public class Movie implements Parcelable {
     /* Tag for the log messages. */
     private final String LOG_TAG = "DEBUGGING " + Movie.class.getSimpleName();
 
+    @SerializedName("original_title")
     private String originalTitle;
+
+    @SerializedName("poster_path")
     private String imageThumbnail;
+
+    @SerializedName("overview")
     private String overview;
+
+    @SerializedName("vote_average")
     private Double rating;
+
+    @SerializedName("release_date")
     private String releaseDate;
 
     /* Default Constructor */

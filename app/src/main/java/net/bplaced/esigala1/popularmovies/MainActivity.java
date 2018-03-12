@@ -30,11 +30,13 @@ import android.view.WindowManager;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import net.bplaced.esigala1.popularmovies.utilities.FetchDataTask;
+import net.bplaced.esigala1.popularmovies.model.Movie;
 import net.bplaced.esigala1.popularmovies.utilities.NetworkUtils;
+import net.bplaced.esigala1.popularmovies.utilities.TMDBApi;
 
-import static net.bplaced.esigala1.popularmovies.utilities.NetworkUtils.SORT_ORDER_MOST_POPULAR;
-import static net.bplaced.esigala1.popularmovies.utilities.NetworkUtils.SORT_ORDER_TOP_RATED;
+import static net.bplaced.esigala1.popularmovies.utilities.TMDBApi.SORT_ORDER_MOST_POPULAR;
+import static net.bplaced.esigala1.popularmovies.utilities.TMDBApi.SORT_ORDER_TOP_RATED;
+
 
 public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVAdapterOnClickHandler {
 
@@ -155,10 +157,18 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
         }
         /* Make the View for the data visible and hide the error message */
         showDataView();
-        /* Fetch the data from the web asynchronous, through the separate class "FetchDataTask" */
-        new FetchDataTask(new FetchDataTaskCompleteListener()).execute(sortOrderCurrent);
+
+        /* Fetch the data from the web asynchronous using Retrofit */
+        TMDBApi the_movie_database_api = new TMDBApi(new FetchDataTaskCompleteListener());
+        /* Start the network transactions */
+        the_movie_database_api.start(sortOrderCurrent);
+
         /* Display the loading indicator */
         displayLoadingIndicator(true);
+    }
+
+    public static void afterResponse(){
+
     }
 
     /**
@@ -335,10 +345,10 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
 
     /**
      * Inner class to fetch the data from the web asynchronous, implementing the custom
-     * interface "AsyncTaskCompleteListener<T>" (included in the separate class "FetchDataTask").
+     * interface "AsyncTaskCompleteListener<T>" (included in the separate class {@link TMDBApi}).
      */
     public class FetchDataTaskCompleteListener
-            implements FetchDataTask.AsyncTaskCompleteListener<Movie[]> {
+            implements TMDBApi.AsyncTaskCompleteListener<Movie[]> {
 
         /* Tag for the log messages. */
         private final String LOG_TAG = "DEBUGGING " + FetchDataTaskCompleteListener.class.getSimpleName();

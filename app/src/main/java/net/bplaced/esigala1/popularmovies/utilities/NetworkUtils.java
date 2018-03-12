@@ -18,109 +18,19 @@ package net.bplaced.esigala1.popularmovies.utilities;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.net.Uri;
 import android.util.Log;
-
-import net.bplaced.esigala1.popularmovies.BuildConfig;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.Scanner;
 
 /**
  * These utilities will be used to communicate with the "themoviedb.org" servers.
  *
- * URL EXAMPLES:
- * https://api.themoviedb.org/3/movie/popular?api_key=###&page=1
- * https://api.themoviedb.org/3/movie/top_rated?api_key=###&page=1
- * https://api.themoviedb.org/3/discover/movie?api_key=###&sort_by=popularity.desc&page=1
  */
 public final class NetworkUtils {
 
     /* Tag for the log messages. */
     private static final String LOG_TAG = "DEBUGGING " + NetworkUtils.class.getSimpleName();
 
-    /* Base URL for data from the "themoviedb.org" */
-    private static final String BASE_URL = "https://api.themoviedb.org/3/movie/?";
-
-    /* The TheMovieDB API Key parameter */
-    private final static String API_KEY_PARAM = "api_key";
-
-    /* Set strings for the sort order available methods */
-    public static final String SORT_ORDER_MOST_POPULAR = "popular";
-    public static final String SORT_ORDER_TOP_RATED = "top_rated";
-
     /* The TheMovieDB Image Size value */
     private final static String IMAGE_SIZE = "w185";
-
-    /**
-     * Builds the URL used to talk to the weather server using a location. This location is based
-     * on the query capabilities of the weather provider that we are using.
-     *
-     * @param sortOrder The sorting order of the posters that will be queried for.
-     * @return The URL to use to query the weather server.
-     */
-    public static URL buildUrl(String sortOrder) {
-        Log.d(LOG_TAG, "buildUrl()");
-
-        Uri builtUri = Uri.parse(BASE_URL).buildUpon()
-                .appendPath(sortOrder)
-                .appendQueryParameter(API_KEY_PARAM, BuildConfig.THEMOVIEDB_ORG_API_KEY)
-                .build();
-        try {
-            URL url = new URL(builtUri.toString());
-            Log.d(LOG_TAG, "Built URI " + url);
-            return url;
-        } catch (MalformedURLException ex) {
-            Log.e(LOG_TAG, "buildUrl(): Exception caught: " + ex);
-            return null;
-        }
-    }
-
-    /**
-     * This method returns the entire result from the HTTP response.
-     *
-     * @param url The URL to fetch the HTTP response from.
-     * @return The contents of the HTTP response.
-     * @throws IOException Related to network and stream reading.
-     */
-    public static String getResponseFromHttpUrl(URL url) throws IOException {
-        Log.d(LOG_TAG, "getResponseFromHttpUrl()");
-
-        // If the URL is null, then return early.
-        if (url == null) {
-            return null;
-        }
-
-        HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-        try {
-
-            // If the request was not successful (response code different from 200), then...
-            if (urlConnection.getResponseCode() != 200) {
-                Log.e(LOG_TAG, "Error Response Code: " + urlConnection.getResponseCode());
-                return null;
-            }
-
-            InputStream inputStream = urlConnection.getInputStream();
-
-            Scanner scanner = new Scanner(inputStream);
-            scanner.useDelimiter("\\A");
-
-            boolean hasInput = scanner.hasNext();
-            if (hasInput) {
-                return scanner.next();
-            } else {
-                return null;
-            }
-        } finally {
-            if (urlConnection != null) {
-                urlConnection.disconnect();
-            }
-        }
-    }
 
     /**
      * Method to build the image URL as a String.
