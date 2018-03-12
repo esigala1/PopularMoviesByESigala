@@ -38,7 +38,7 @@ public class DetailActivity extends AppCompatActivity {
         setContentView(R.layout.activity_detail);
 
         ImageView ivPoster = findViewById(R.id.iv_poster);
-        TextView tvDisplayData = findViewById(R.id.tv_original_title);
+        TextView tvOriginalTitle = findViewById(R.id.tv_original_title);
         TextView tvReleaseDate = findViewById(R.id.tv_release_date);
         TextView tvRating = findViewById(R.id.tv_rating);
         TextView tvOverview = findViewById(R.id.tv_overview);
@@ -52,7 +52,7 @@ public class DetailActivity extends AppCompatActivity {
                 /* Retrieve extended data (parcelable data) from the intent */
                 Movie mItemData = (Movie) intentThatStartedThisActivity.getParcelableExtra(MainActivity.KEY_PARCELABLE_DATA);
                 /* Set the data to the corresponding views */
-                tvDisplayData.setText(getResources().getString(R.string.item_original_title, mItemData.getOriginalTitle()));
+                tvOriginalTitle.setText(getResources().getString(R.string.item_original_title, mItemData.getOriginalTitle()));
                 tvReleaseDate.setText(getResources().getString(R.string.item_release_date, mItemData.getReleaseDate()));
                 tvRating.setText(getResources().getString(R.string.item_rating, mItemData.getRating()));
                 tvOverview.setText(getResources().getString(R.string.item_overview, mItemData.getOverview()));
