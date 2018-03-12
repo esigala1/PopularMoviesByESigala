@@ -1,13 +1,19 @@
 # Popular Movies Project
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+
 ## Project Overview
 An android app to display a list of movies from **[The Movie Database](https://www.themoviedb.org)**.
 
 * An API key from [themoviedb.org](https://developers.themoviedb.org/3/getting-started/introduction) is required for the HTTP requests to work.
-* Add the API Key in [gradle.properties](https://developer.android.com/studio/build/index.html#properties-files) file, located in your root project directory:
-**THEMOVIEDB_ORG_API_KEY="xxx"**
+* Add your own API Key in [gradle.properties](https://developer.android.com/studio/build/index.html#properties-files) file, located in your root project directory:
 
-Developed for the Udacity Nanodegree Program **"Android Developer Nanodegree by Google"**.
+```
+THEMOVIEDB_ORG_API_KEY="xxx"
+```
+<br>
+
+_Developed for the Udacity Nanodegree Program **"Android Developer Nanodegree by Google"**._
 
 ## Third-Party Libraries
 
