@@ -6,7 +6,7 @@
 An android app to display a list of movies from **[The Movie Database](https://www.themoviedb.org)**.
 
 * An API key from [themoviedb.org](https://developers.themoviedb.org/3/getting-started/introduction) is required for the HTTP requests to work.
-* Add your own API Key in [gradle.properties](https://developer.android.com/studio/build/index.html#properties-files) file, located in your root project directory:
+* Add your own API Key in [gradle.properties](https://developer.android.com/studio/build/index.html#properties-files) file (located in your root project directory):
 
 ```
 THEMOVIEDB_ORG_API_KEY="xxx"
