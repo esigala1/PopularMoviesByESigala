@@ -167,10 +167,6 @@ public class MainActivity extends AppCompatActivity implements MyRVAdapter.MyRVA
         displayLoadingIndicator(true);
     }
 
-    public static void afterResponse(){
-
-    }
-
     /**
      * This method will refresh the data.
      */
