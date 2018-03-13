@@ -1,0 +1,45 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 27
+    defaultConfig {
+        applicationId "net.bplaced.esigala1.popularmovies"
+        minSdkVersion 15     // ICE_CREAM_SANDWICH 4.03 - 4.04
+        targetSdkVersion 27  // OREO 8.1
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        buildConfigField("String", "THEMOVIEDB_ORG_API_KEY", THEMOVIEDB_ORG_API_KEY)
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    supportLibVersion = '27.1.0' // Variable that can be referenced to keep support libs consistent
+    retrofitLibVersion = '2.3.0'
+    butterKnifeLibVersion = '8.8.1'
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Android Supported Libraries.
+    implementation "com.android.support:appcompat-v7:${supportLibVersion}"
+    implementation "com.android.support:recyclerview-v7:${supportLibVersion}"
+
+    // Third-Party Libraries.
+    implementation 'com.squareup.picasso:picasso:2.5.2'
+    implementation "com.squareup.retrofit2:retrofit:${retrofitLibVersion}"
+    implementation "com.squareup.retrofit2:converter-gson:${retrofitLibVersion}"
+    implementation "com.jakewharton:butterknife:${butterKnifeLibVersion}"
+    annotationProcessor "com.jakewharton:butterknife-compiler:${butterKnifeLibVersion}"
+
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+}
